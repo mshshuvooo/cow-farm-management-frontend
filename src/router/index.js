@@ -4,6 +4,7 @@ import UnauthorizedView from "../views/auth/UnauthorizedView.vue";
 import HomeView from "../views/HomeView.vue";
 import LoginView from "../views/auth/LoginView.vue";
 import CowsView from "../views/cow/CowsView.vue";
+import AddNewCowView from "../views/cow/AddNewCowView.vue";
 
 
 const router = createRouter({
@@ -25,6 +26,14 @@ const router = createRouter({
       path: "/cows",
       name: "cowList",
       component: CowsView,
+      meta: {
+        required_role: "admin",
+      },
+    },
+    {
+      path: "/cows/add-new",
+      name: "addNewCow",
+      component: AddNewCowView,
       meta: {
         required_role: "admin",
       },

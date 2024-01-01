@@ -1,25 +1,6 @@
 <script setup>
 import { ref } from "vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-
-import {
-  ArrowLeftOnRectangleIcon,
-  Bars3CenterLeftIcon,
-  BriefcaseIcon,
-  CreditCardIcon,
-  HomeModernIcon,
-  MapIcon,
-  ShoppingCartIcon,
-  ShoppingBagIcon,
-  TagIcon,
-  TicketIcon,
-  TruckIcon,
-  UserGroupIcon,
-  XMarkIcon,
-  UsersIcon,
-  CurrencyPoundIcon,
-} from "@heroicons/vue/24/outline";
-
 import { useAuthStore } from "../../stores/auth.store";
 import {
   Dialog,
@@ -31,7 +12,7 @@ import NavigationLink from "./NavigationLink.vue";
 import NavigationHeader from "./NavigationHeader.vue";
 
 const auth = useAuthStore();
-
+console.log(auth.user);
 const navigation = [
   {
     name: "Dashboard",
@@ -65,7 +46,7 @@ const sidebarOpen = ref(false);
       @click="sidebarOpen = true"
     >
       <span class="sr-only">Open sidebar</span>
-      <Bars3CenterLeftIcon class="h-7 w-7" aria-hidden="true" />
+      <FontAwesomeIcon class="text-2xl" icon="fa-solid fa-bars" />
     </button>
     <button
       v-if="auth.user !== null"
@@ -122,7 +103,10 @@ const sidebarOpen = ref(false);
                   @click="sidebarOpen = false"
                 >
                   <span class="sr-only">Close sidebar</span>
-                  <XMarkIcon class="h-6 w-6 text-white" aria-hidden="true" />
+                  <FontAwesomeIcon
+                    class="text-2xl text-white"
+                    icon="fa-solid fa-xmark"
+                  />
                 </button>
               </div>
             </TransitionChild>
@@ -156,12 +140,14 @@ const sidebarOpen = ref(false);
   <!-- Static sidebar for desktop -->
   <div class="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-[300px] lg:flex-col">
     <!-- Sidebar component, swap this element with another sidebar if you like -->
-    <div class="flex flex-grow flex-col overflow-y-auto bg-gray-900 pb-4 pt-5">
+    <div
+      class="flex flex-grow flex-col overflow-y-auto bg-gray-900 pb-4 pt-[30px]"
+    >
       <div class="items-center px-4 mb-5">
-        <h1 class="text-white font-bold text-2xl uppercase mb-1">
+        <h1 class="text-white font-extrabold text-2xl uppercase mb-1">
           Nirapod Agro
         </h1>
-        <p class="text-white">Cow Management System</p>
+        <p class="text-white">Cow Farm Management System</p>
       </div>
       <nav
         class="mt-5 mb-[50px] justify-between flex flex-1 flex-col divide-y divide-gray-700 overflow-y-auto"
@@ -177,29 +163,6 @@ const sidebarOpen = ref(false);
           </div>
         </div>
       </nav>
-      <div class="flex " v-if="auth.user !== null">
-        <div class="flex-shrink-0">
-          <img
-            class="w-[48px] h-[48px]"
-            src="../../assets/images/user_icon.png"
-            alt=""
-          />
-        </div>
-        <div class="ml-4">
-          <h3 class="text-base font-semibold leading-6 text-white mb-2">
-            {{ auth?.user?.name }}
-            <span class="text-sm text-gray-400"
-              >({{ auth?.user?.roles[0] }})</span
-            >
-          </h3>
-          <button
-            class="text-white pt-1 block text-left uppercase text-sm font-medium bg-blue-600 px-5 py-1 rounded-sm"
-            @click="auth.logout()"
-          >
-            Log Out
-          </button>
-        </div>
-      </div>
     </div>
   </div>
 </template>

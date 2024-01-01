@@ -22,13 +22,15 @@ const canView = computed(() => {
     }
   });
 
+
+  console.log(userRoles);
   return permitted;
 });
 </script>
 
 <template>
   <router-link
-    v-show="canView"
+    v-if="canView"
     :to="props.item.href"
     class="text-white bg-blue-600 group flex items-center rounded-md px-2 py-2 text-sm font-medium leading-6 text-md uppercase transition-all ease-in-out delay-100 duration-300 hover:bg-rose-600"
   >

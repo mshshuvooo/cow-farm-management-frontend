@@ -12,11 +12,25 @@ import {
   faCow,
   faChevronRight,
   faHouseChimney,
+  faXmark
 } from "@fortawesome/free-solid-svg-icons";
-import { faCircleUser } from "@fortawesome/free-regular-svg-icons";
+import {
+  faCircleUser,
+  faUser,
+  faShareFromSquare,
+} from "@fortawesome/free-regular-svg-icons";
 
 /* add icons to the library */
-library.add(faBars, faCow, faChevronRight, faHouseChimney, faCircleUser);
+library.add(
+  faBars,
+  faCow,
+  faChevronRight,
+  faHouseChimney,
+  faCircleUser,
+  faShareFromSquare,
+  faUser,
+  faXmark
+);
 
 const app = createApp(App);
 const pinia = createPinia();
