@@ -10,9 +10,11 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faBars,
   faCow,
-  faChevronRight,
   faHouseChimney,
-  faXmark
+  faXmark,
+  faMagnifyingGlass,
+  faChevronLeft,
+  faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faCircleUser,
@@ -24,12 +26,14 @@ import {
 library.add(
   faBars,
   faCow,
-  faChevronRight,
   faHouseChimney,
   faCircleUser,
   faShareFromSquare,
   faUser,
-  faXmark
+  faXmark,
+  faMagnifyingGlass,
+  faChevronLeft,
+  faChevronRight,
 );
 
 const app = createApp(App);

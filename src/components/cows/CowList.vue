@@ -2,8 +2,6 @@
 const props = defineProps({
   cows: Array,
 });
-
-console.log(props.cows);
 </script>
 
 <template>
@@ -48,7 +46,7 @@ console.log(props.cows);
                 </th>
                 <th
                   scope="col"
-                  class="px-4 py-3.5 text-right text-sm font-medium text-gray-900"
+                  class="px-4 py-3.5 text-right text-sm font-semibold text-gray-900"
                 >
                   Action
                 </th>
@@ -56,29 +54,37 @@ console.log(props.cows);
             </thead>
             <tbody class="divide-y divide-gray-200 bg-white">
               <tr v-for="cow in props.cows" :key="cow.id">
-                <td class="whitespace-nowrap px-4 py-4 text-sm text-gray-900">
+                <td class="whitespace-nowrap px-4 py-3 text-sm text-gray-900">
                   {{ cow?.ear_tag_no }}
                 </td>
-                <td class="whitespace-nowrap px-4 py-4 text-sm text-gray-900">
+                <td class="whitespace-nowrap px-4 py-3 text-sm text-gray-900">
                   {{ cow?.name }}
                 </td>
                 <td
-                  class="whitespace-nowrap px-4 py-4 text-sm text-gray-900 capitalize"
+                  class="whitespace-nowrap px-4 py-3 text-sm text-gray-900 capitalize"
                 >
                   {{ cow?.gender }}
                 </td>
-                <td class="whitespace-nowrap px-4 py-4 text-sm text-gray-900">
+                <td class="whitespace-nowrap px-4 py-3 text-sm text-gray-900">
                   {{ cow?.mother?.name }}
                 </td>
-                <td class="whitespace-nowrap px-4 py-4 text-sm text-gray-900">
-                  {{ cow?.status }}
+                <td class="whitespace-nowrap px-4 py-3 text-sm text-gray-900">
+                  <span
+                    :class="[
+                      'uppercase px-3 py-1 rounded-full text-xs w-[70px] inline-block text-center font-semibold',
+                      cow?.status == 'active'
+                        ? 'bg-emerald-500 text-white'
+                        : '',
+                      cow?.status == 'sold' ? 'bg-yellow-500' : '',
+                      cow?.status == 'dead' ? 'bg-red-500 text-white' : '',
+                    ]"
+                    >{{ cow?.status }}</span
+                  >
                 </td>
                 <td
-                  class="whitespace-nowrap px-4 py-4 text-sm text-gray-900 text-right"
+                  class="whitespace-nowrap px-4 py-3 text-sm text-gray-900 text-right"
                 >
-                  <button class="text-blue-600 font-semibold">
-                    View Details
-                  </button>
+                  <button class="text-blue-600">View Details</button>
                 </td>
               </tr>
             </tbody>

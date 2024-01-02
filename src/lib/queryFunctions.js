@@ -12,3 +12,13 @@ export const getDisplayQuery = (params = { display: "" }) => {
   if (params?.display == undefined) params.display = "";
   return `display=${params.display}&`;
 };
+
+export const getCowsByGender = (params = { gender: "" }) => {
+  if (params?.gender == undefined) params.gender = "";
+  return `gender=${params.gender}&`;
+};
+
+export const getCowsByStatus = (params = { status: "" }) => {
+  if (params?.status == undefined) params.status = "";
+  return `status=${params.status}&`;
+};

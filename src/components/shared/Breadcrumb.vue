@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <script setup>
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 defineProps({
