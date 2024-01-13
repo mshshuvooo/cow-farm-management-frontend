@@ -25,7 +25,7 @@ const navigation = [
     header: false,
     href: "/cows",
     icon: "fa-solid fa-cow",
-    required_role: ["admin"],
+    required_role: ["admin", "subscriber"],
   },
 
   // {

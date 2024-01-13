@@ -1,9 +1,10 @@
 <script setup>
 import { ref, watch } from "vue";
-import Button from "/src/components/shared/Button.vue";
-import PageTitle from "/src/components/shared/PageTitle.vue";
+import { useAuthStore } from "/src/stores/auth.store";
 import { getCows } from "/src/services/cow/cow.service";
 import { useRoute, useRouter } from "vue-router";
+import Button from "/src/components/shared/Button.vue";
+import PageTitle from "/src/components/shared/PageTitle.vue";
 import CowList from "/src/components/cows/CowList.vue";
 import Search from "/src/components/search/Search.vue";
 import FilterCowByGender from "/src/components/search/FilterCowByGender.vue";
@@ -13,6 +14,7 @@ import SlideOver from "/src/components/shared/SlideOver.vue";
 import AddNewCow from "/src/components/cows/AddNewCow.vue";
 import SuccessNotification from "/src/components/shared/SuccessNotification.vue";
 
+const auth = useAuthStore();
 const cows = ref([]);
 const pageMeta = ref();
 const router = useRouter();
@@ -121,7 +123,7 @@ await fetchCows({ page: 1, ...searchTerm.value });
         <PageTitle title="Cows" />
         <p>List of all cows</p>
       </div>
-      <div class="text-end">
+      <div class="text-end" v-if="auth?.user?.roles?.includes('admin')">
         <Button :onClick="openAddNewCowSlide" label="Add New Cow" />
       </div>
     </div>
@@ -148,6 +150,7 @@ await fetchCows({ page: 1, ...searchTerm.value });
   </div>
 
   <SlideOver
+    v-if="auth?.user?.roles?.includes('admin')"
     title="Add New Cow"
     :openSlide="showAddNewCowSlide"
     @close:slideOver="closeAddNewCowSlide"

@@ -26,7 +26,7 @@ const router = createRouter({
       name: "cowList",
       component: CowsView,
       meta: {
-        required_role: "admin",
+        required_role: ["admin", "subscriber"],
       },
     },
 
@@ -35,7 +35,7 @@ const router = createRouter({
       name: "cowDetails",
       component: CowDetailsView,
       meta: {
-        required_role: "admin",
+        required_role: ["admin", "subscriber"],
       },
     },
 
@@ -62,7 +62,8 @@ router.beforeEach(async (to) => {
 
   if (auth.user && to.meta?.required_role) {
     const userRoles = auth?.user?.roles;
-    if (!userRoles.includes(to.meta?.required_role)) {
+    to.meta?.required_role;
+    if (!to.meta?.required_role.some((role) => userRoles.includes(role))) {
       return "/unauthorized";
     }
   }

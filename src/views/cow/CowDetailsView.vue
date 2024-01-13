@@ -13,6 +13,7 @@ import SlideOver from "/src/components/shared/SlideOver.vue";
 import SuccessNotification from "/src/components/shared/SuccessNotification.vue";
 import EditCow from "/src/components/cows/EditCow.vue";
 import { deleteCow } from "../../services/cow/cow.service";
+import { useAuthStore } from "../../stores/auth.store";
 
 const route = useRoute();
 const router = useRouter();
@@ -51,6 +52,8 @@ const handleDeleteCow = async () => {
     }
   }
 };
+
+const auth = useAuthStore();
 </script>
 
 <template>
@@ -69,7 +72,10 @@ const handleDeleteCow = async () => {
           {{ cow?.status }}
         </p>
       </div>
-      <div class="text-end text-white text-lg">
+      <div
+        class="text-end text-white text-lg"
+        v-if="auth?.user?.roles?.includes('admin')"
+      >
         <button
           @click="openEditCowSlide"
           class="mr-2 bg-blue-600 w-[40px] h-[40px] text-center rounded-full transition-all ease-in-out delay-100 duration-300 hover:bg-rose-600"
@@ -89,6 +95,7 @@ const handleDeleteCow = async () => {
   </div>
 
   <SlideOver
+    v-if="auth?.user?.roles?.includes('admin')"
     title="Edit Cow"
     :openSlide="showEditCowSlide"
     @close:slideOver="closeEditCowSlide"
