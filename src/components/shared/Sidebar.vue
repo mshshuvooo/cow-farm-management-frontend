@@ -13,7 +13,6 @@ import NavigationLink from "./NavigationLink.vue";
 import NavigationHeader from "./NavigationHeader.vue";
 
 const auth = useAuthStore();
-console.log(auth.user);
 const navigation = [
   {
     name: "Dashboard",

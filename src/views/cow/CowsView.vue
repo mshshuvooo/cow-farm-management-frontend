@@ -1,24 +1,31 @@
 <script setup>
 import { ref, watch } from "vue";
-import Breadcrumb from "../../components/shared/Breadcrumb.vue";
-import Button from "../../components/shared/Button.vue";
-import PageTitle from "../../components/shared/PageTitle.vue";
-import { getCows } from "../../services/cow/cow.service";
-import { useAuthStore } from "../../stores/auth.store";
+import Button from "/src/components/shared/Button.vue";
+import PageTitle from "/src/components/shared/PageTitle.vue";
+import { getCows } from "/src/services/cow/cow.service";
 import { useRoute, useRouter } from "vue-router";
-import CowList from "../../components/cows/CowList.vue";
-import Search from "../../components/search/Search.vue";
-import FilterCowByGender from "../../components/search/FilterCowByGender.vue";
-import FilterCowByStatus from "../../components/search/FilterCowByStatus.vue";
-import Pagination from "../../components/shared/Pagination.vue";
-
-const breadcrumbPages = [{ name: "Cows", href: "/cows", current: true }];
-const auth = useAuthStore();
+import CowList from "/src/components/cows/CowList.vue";
+import Search from "/src/components/search/Search.vue";
+import FilterCowByGender from "/src/components/search/FilterCowByGender.vue";
+import FilterCowByStatus from "/src/components/search/FilterCowByStatus.vue";
+import Pagination from "/src/components/shared/Pagination.vue";
+import SlideOver from "/src/components/shared/SlideOver.vue";
+import AddNewCow from "/src/components/cows/AddNewCow.vue";
+import SuccessNotification from "/src/components/shared/SuccessNotification.vue";
 
 const cows = ref([]);
 const pageMeta = ref();
 const router = useRouter();
 const route = useRoute();
+const cowAddResult = ref({});
+const showAddNewCowSlide = ref(false);
+const openAddNewCowSlide = () => {
+  showAddNewCowSlide.value = true;
+};
+const closeAddNewCowSlide = () => {
+  showAddNewCowSlide.value = false;
+};
+
 const searchTerm = ref({
   search: route?.query?.search ?? "",
   gender: route?.query?.gender ?? "",
@@ -87,7 +94,24 @@ watch(
   }
 );
 
-fetchCows({ page: 1, ...searchTerm.value });
+const updateCowsAfterAddNew = async (result) => {
+  showAddNewCowSlide.value = false;
+  cowAddResult.value = result;
+
+  if (
+    Number.isInteger(pageMeta.value.total / pageMeta.value.per_page) &&
+    pageMeta.value.total / pageMeta.value.per_page != 0
+  ) {
+    await fetchCows({
+      page: pageMeta.value.last_page + 1,
+      ...searchTerm.value,
+    });
+  } else {
+    await fetchCows({ page: pageMeta.value.last_page, ...searchTerm.value });
+  }
+};
+
+await fetchCows({ page: 1, ...searchTerm.value });
 </script>
 
 <template>
@@ -98,7 +122,7 @@ fetchCows({ page: 1, ...searchTerm.value });
         <p>List of all cows</p>
       </div>
       <div class="text-end">
-        <Button to="/cows/add-new" label="Add New Cow" />
+        <Button :onClick="openAddNewCowSlide" label="Add New Cow" />
       </div>
     </div>
     <div class="grid grid-cols-12 gap-2 mt-10">
@@ -123,6 +147,16 @@ fetchCows({ page: 1, ...searchTerm.value });
     </div>
   </div>
 
+  <SlideOver
+    title="Add New Cow"
+    :openSlide="showAddNewCowSlide"
+    @close:slideOver="closeAddNewCowSlide"
+  >
+    <AddNewCow @update:cowsAfterAddNew="updateCowsAfterAddNew" />
+  </SlideOver>
+
+  <SuccessNotification :apiResponse="cowAddResult" />
+
   <main
     class="lg:px-10 md:px-[20px] px-[20px] lg:pt-[20px] md:pt-[20px] pt-[20px] pb-[50px] bg-[#f1f5f9] min-h-screen"
   >
@@ -131,6 +165,6 @@ fetchCows({ page: 1, ...searchTerm.value });
       :searchTerm="searchTerm"
       :meta="pageMeta"
     />
-    <CowList :cows="cows" />
+    <CowList view="full" :cows="cows" />
   </main>
 </template>

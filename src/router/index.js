@@ -4,8 +4,7 @@ import UnauthorizedView from "../views/auth/UnauthorizedView.vue";
 import HomeView from "../views/HomeView.vue";
 import LoginView from "../views/auth/LoginView.vue";
 import CowsView from "../views/cow/CowsView.vue";
-import AddNewCowView from "../views/cow/AddNewCowView.vue";
-
+import CowDetailsView from "../views/cow/CowDetailsView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -30,10 +29,11 @@ const router = createRouter({
         required_role: "admin",
       },
     },
+
     {
-      path: "/cows/add-new",
-      name: "addNewCow",
-      component: AddNewCowView,
+      path: "/cows/:earTagNo",
+      name: "cowDetails",
+      component: CowDetailsView,
       meta: {
         required_role: "admin",
       },

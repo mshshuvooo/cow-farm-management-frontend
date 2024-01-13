@@ -2,7 +2,6 @@
 <script setup>
 import { computed } from "vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/vue/20/solid";
 
 const props = defineProps({
   meta: Object,
@@ -33,7 +32,6 @@ const pageRange = computed(() => {
 
   return [start, start + 1, currentPage.value, end - 1, end];
 });
-console.log(pageRange);
 
 const searchTerm = computed(() => props.searchTerm);
 const nextPageNumber = computed(() => currentPage.value + 1);

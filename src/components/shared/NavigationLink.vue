@@ -22,8 +22,6 @@ const canView = computed(() => {
     }
   });
 
-
-  console.log(userRoles);
   return permitted;
 });
 </script>

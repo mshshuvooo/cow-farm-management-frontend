@@ -1,11 +1,12 @@
 <script setup>
 const props = defineProps({
   cows: Array,
+  view: String,
 });
 </script>
 
 <template>
-  <div class="mt-8 flow-root">
+  <div class="flow-root">
     <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
       <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
         <div
@@ -33,6 +34,7 @@ const props = defineProps({
                   Gender
                 </th>
                 <th
+                  v-if="props.view == 'full'"
                   scope="col"
                   class="px-4 py-3.5 text-left text-sm font-semibold text-gray-900"
                 >
@@ -65,18 +67,23 @@ const props = defineProps({
                 >
                   {{ cow?.gender }}
                 </td>
-                <td class="whitespace-nowrap px-4 py-3 text-sm text-gray-900">
+                <td
+                  v-if="props.view == 'full'"
+                  class="whitespace-nowrap px-4 py-3 text-sm text-gray-900"
+                >
                   {{ cow?.mother?.name }}
                 </td>
                 <td class="whitespace-nowrap px-4 py-3 text-sm text-gray-900">
                   <span
                     :class="[
-                      'uppercase px-3 py-1 rounded-full text-xs w-[70px] inline-block text-center font-semibold',
+                      'uppercase px-3 py-0.5 rounded-full text-[11px] w-[70px] inline-block text-center font-semibold',
                       cow?.status == 'active'
-                        ? 'bg-emerald-500 text-white'
+                        ? 'bg-green-100 text-emerald-500'
                         : '',
-                      cow?.status == 'sold' ? 'bg-yellow-500' : '',
-                      cow?.status == 'dead' ? 'bg-red-500 text-white' : '',
+                      cow?.status == 'sold'
+                        ? 'bg-amber-100 text-amber-600'
+                        : '',
+                      cow?.status == 'dead' ? 'bg-red-100 text-red-500' : '',
                     ]"
                     >{{ cow?.status }}</span
                   >
@@ -84,7 +91,15 @@ const props = defineProps({
                 <td
                   class="whitespace-nowrap px-4 py-3 text-sm text-gray-900 text-right"
                 >
-                  <button class="text-blue-600">View Details</button>
+                  <router-link
+                    class="text-blue-500 transition-all ease-in-out delay-100 duration-300 hover:text-blue-700"
+                    :to="{
+                      name: 'cowDetails',
+                      params: { earTagNo: cow?.ear_tag_no },
+                    }"
+                  >
+                    View Details
+                  </router-link>
                 </td>
               </tr>
             </tbody>
