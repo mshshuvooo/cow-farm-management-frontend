@@ -17,7 +17,8 @@ import {
   faChevronRight,
   faCircleCheck,
   faPenToSquare,
-  faTrashCan
+  faTrashCan,
+  faSyringe
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faCircleUser,
@@ -39,7 +40,8 @@ library.add(
   faChevronRight,
   faCircleCheck,
   faPenToSquare,
-  faTrashCan
+  faTrashCan,
+  faSyringe
 );
 
 const app = createApp(App);

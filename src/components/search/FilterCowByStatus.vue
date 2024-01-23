@@ -4,7 +4,7 @@ import { ref, watch } from "vue";
 const props = defineProps({
   status: String,
 });
-const emit = defineEmits(["update:status"]);
+const emit = defineEmits(["filter:byStatus"]);
 const cowStatus = [
   { label: "All", value: "" },
   { label: "Active", value: "active" },
@@ -17,7 +17,7 @@ const selectedStatus = ref(props.status);
 watch(
   () => selectedStatus.value,
   () => {
-    emit("update:status", selectedStatus.value);
+    emit("filter:byStatus", selectedStatus.value);
   }
 );
 </script>

@@ -27,6 +27,13 @@ const navigation = [
     icon: "fa-solid fa-cow",
     required_role: ["admin", "subscriber"],
   },
+  {
+    name: "Vaccines",
+    header: false,
+    href: "/vaccines",
+    icon: "fa-solid fa-syringe",
+    required_role: ["admin", "subscriber"],
+  },
 
   // {
   //   name: "Sage Sync",

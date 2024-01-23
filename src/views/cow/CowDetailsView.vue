@@ -7,11 +7,11 @@ import Multiselect from "@vueform/multiselect";
 import Breadcrumb from "/src/components/shared/Breadcrumb.vue";
 import PageTitle from "/src/components/shared/PageTitle.vue";
 import Button from "/src/components/shared/Button.vue";
-import CowInfo from "/src/components/cows/CowInfo.vue";
-import CowList from "/src/components/cows/CowList.vue";
+import CowInfo from "/src/components/cow/CowInfo.vue";
+import CowList from "/src/components/cow/CowList.vue";
 import SlideOver from "/src/components/shared/SlideOver.vue";
 import SuccessNotification from "/src/components/shared/SuccessNotification.vue";
-import EditCow from "/src/components/cows/EditCow.vue";
+import EditCow from "/src/components/cow/EditCow.vue";
 import { deleteCow } from "../../services/cow/cow.service";
 import { useAuthStore } from "../../stores/auth.store";
 

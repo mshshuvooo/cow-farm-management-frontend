@@ -1,6 +1,10 @@
 export const formatDate = (dateString) => {
   const date = new Date(dateString);
-  return new Intl.DateTimeFormat("en-GB", { dateStyle: "medium" }).format(date);
+  return new Intl.DateTimeFormat("en-GB", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric",
+  }).format(date);
 };
 
 export const formatCurrency = (value) => {

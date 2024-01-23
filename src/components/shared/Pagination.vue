@@ -7,6 +7,10 @@ const props = defineProps({
   meta: Object,
   searchTerm: Object,
   updateFunction: Function,
+  bgColor: {
+    type: String,
+    default: "white",
+  },
 });
 
 const pageCount = computed(() => props?.meta?.last_page);
@@ -44,9 +48,11 @@ const changePage = async (page = 1) => {
 };
 </script>
 <template>
-  <div class="pagination mb-3">
+  <div class="mb-3">
     <div
-      class="rounded-lg flex items-center justify-between bg-white px-4 py-3 sm:px-6"
+      :class="[
+        `rounded-lg flex items-center justify-between bg-${bgColor} border px-4 py-3 sm:px-6`,
+      ]"
     >
       <div class="sm:flex sm:flex-1 sm:items-center sm:justify-between">
         <div class="sm:mb-0 mb-3">

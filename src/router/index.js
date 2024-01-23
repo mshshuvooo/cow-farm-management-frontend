@@ -5,6 +5,8 @@ import HomeView from "../views/HomeView.vue";
 import LoginView from "../views/auth/LoginView.vue";
 import CowsView from "../views/cow/CowsView.vue";
 import CowDetailsView from "../views/cow/CowDetailsView.vue";
+import VaccinesView from "../views/vaccine/VaccinesView.vue";
+import VaccineDetailsView from "../views/vaccine/VaccineDetailsView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -34,6 +36,24 @@ const router = createRouter({
       path: "/cows/:earTagNo",
       name: "cowDetails",
       component: CowDetailsView,
+      meta: {
+        required_role: ["admin", "subscriber"],
+      },
+    },
+
+    {
+      path: "/vaccines",
+      name: "vaccineList",
+      component: VaccinesView,
+      meta: {
+        required_role: ["admin", "subscriber"],
+      },
+    },
+
+    {
+      path: "/vaccines/:id",
+      name: "vaccineDetails",
+      component: VaccineDetailsView,
       meta: {
         required_role: ["admin", "subscriber"],
       },

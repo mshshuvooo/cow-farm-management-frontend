@@ -5,13 +5,13 @@ import { getCows } from "/src/services/cow/cow.service";
 import { useRoute, useRouter } from "vue-router";
 import Button from "/src/components/shared/Button.vue";
 import PageTitle from "/src/components/shared/PageTitle.vue";
-import CowList from "/src/components/cows/CowList.vue";
+import CowList from "/src/components/cow/CowList.vue";
 import Search from "/src/components/search/Search.vue";
 import FilterCowByGender from "/src/components/search/FilterCowByGender.vue";
 import FilterCowByStatus from "/src/components/search/FilterCowByStatus.vue";
 import Pagination from "/src/components/shared/Pagination.vue";
 import SlideOver from "/src/components/shared/SlideOver.vue";
-import AddNewCow from "/src/components/cows/AddNewCow.vue";
+import AddNewCow from "/src/components/cow/AddNewCow.vue";
 import SuccessNotification from "/src/components/shared/SuccessNotification.vue";
 
 const auth = useAuthStore();
@@ -136,14 +136,14 @@ await fetchCows({ page: 1, ...searchTerm.value });
         <label class="mb-2 block">Filter by Gender</label>
         <FilterCowByGender
           :gender="searchTerm.gender"
-          @update:gender="filterCowByGender"
+          @filter:byGender="filterCowByGender"
         />
       </div>
       <div class="col-span-3">
         <label class="mb-2 block">Filter by Status</label>
         <FilterCowByStatus
           :status="searchTerm.status"
-          @update:status="filterCowByStatus"
+          @filter:byStatus="filterCowByStatus"
         />
       </div>
     </div>

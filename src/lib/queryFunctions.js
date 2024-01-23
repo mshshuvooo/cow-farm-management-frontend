@@ -22,3 +22,13 @@ export const getCowsByStatus = (params = { status: "" }) => {
   if (params?.status == undefined) params.status = "";
   return `status=${params.status}&`;
 };
+
+export const getCowsByVaccineId = (params = { vaccineId: "" }) => {
+  if (params?.vaccineId == undefined) params.vaccineId = "";
+  return `vaccine_id=${params.vaccineId}&`;
+};
+
+export const getVaccinesByType = (params = { vaccineType: "" }) => {
+  if (params?.vaccineType == undefined) params.vaccineType = "";
+  return `vaccine_type=${params.vaccineType}&`;
+};
