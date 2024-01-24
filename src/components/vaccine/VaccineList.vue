@@ -4,8 +4,6 @@ import { geVaccineTypeName } from "/src/lib/commonFunctions.js";
 const props = defineProps({
   vaccines: Array,
 });
-
-console.log(props.vaccines);
 </script>
 
 <template>

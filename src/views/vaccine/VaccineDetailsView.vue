@@ -12,7 +12,7 @@ import PageTitle from "/src/components/shared/PageTitle.vue";
 import SlideOver from "/src/components/shared/SlideOver.vue";
 import SuccessNotification from "/src/components/shared/SuccessNotification.vue";
 import EditVaccine from "/src/components/vaccine/EditVaccine.vue";
-//import { deleteVaccine } from "../../services/vaccine/vaccine.service";
+import { deleteVaccine } from "../../services/vaccine/vaccine.service";
 import Pagination from "/src/components/shared/Pagination.vue";
 import CowList from "/src/components/cow/CowList.vue";
 import Search from "/src/components/search/Search.vue";
@@ -37,7 +37,7 @@ const cowSearchTerm = ref({
   vaccineId: route?.params?.id ?? "",
 });
 
-// Fetch Cows //
+// Fetch vaccinated cows //
 const fetchVaccinatedCows = async (params) => {
   const cowsResponse = await getCows(params);
   vaccinatedCows.value = cowsResponse.data;
@@ -62,25 +62,29 @@ const closeEditVaccineSlide = () => {
   showEditVaccineSlide.value = false;
 };
 
+//Update vaccine data after edit
 const updateVaccineAfterEdit = async (result) => {
   vaccine.value = result.data.data;
+  fetchVaccinatedCows({ page: 1, ...cowSearchTerm.value });
   showEditVaccineSlide.value = false;
   vaccineUpdateResult.value = result;
 };
 
-// const handleDeleteVaccine = async () => {
-//   const customerDeleteConfirmation = window.confirm(
-//     "Do you really want to delete this vaccine?"
-//   );
-//   if (customerDeleteConfirmation) {
-//     const result = await deleteVaccine(route?.params?.earTagNo);
-//     if (result.data.success) {
-//       router.push("/vaccines");
-//     }
-//   }
-// };
+//Delete Vaccine
+const handleDeleteVaccine = async () => {
+  const customerDeleteConfirmation = window.confirm(
+    "Do you really want to delete this vaccine?"
+  );
+  if (customerDeleteConfirmation) {
+    const result = await deleteVaccine(route?.params?.id);
+    if (result.data.success) {
+      router.push("/vaccines");
+    }
+  }
+};
 
 fetchVaccinatedCows({ page: 1, ...cowSearchTerm.value });
+console.log(vaccine);
 </script>
 
 <template>

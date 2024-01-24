@@ -52,7 +52,7 @@ export const getCowVaccineTypes = () => {
 // Get Vaccine dose
 export const getCowVaccineDose = () => {
   return [
-    { label: "First", value: "first" },
+    { label: "Regular", value: "regular" },
     { label: "Booster", value: "booster" },
   ];
 };

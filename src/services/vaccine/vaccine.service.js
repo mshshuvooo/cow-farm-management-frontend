@@ -56,6 +56,7 @@ export async function deleteVaccine(id) {
   try {
     return await axios.delete(`api/vaccines/${id}`);
   } catch (error) {
+    console.log(error);
     return error;
   }
 }

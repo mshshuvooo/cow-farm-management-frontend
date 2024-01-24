@@ -17,8 +17,6 @@ import { getCows } from "../../services/cow/cow.service";
 
 const hasError = ref(false);
 const errors = ref([]);
-const today = new Date();
-const tomorrow = today.setDate(today.getDate() + 1);
 const emit = defineEmits(["update:vaccinesAfterAddNew"]);
 
 let allCows = await getCows({
@@ -167,7 +165,6 @@ const handleAddNewVaccine = async (e) => {
           required
           type="date"
           placeholder="Select Date"
-          :min="new Date(tomorrow).toLocaleDateString('en-ca')"
           v-model="vaccineInfo.next_vaccination_date"
         />
         <ErrorMessages :errors="errors?.next_vaccination_date" />
