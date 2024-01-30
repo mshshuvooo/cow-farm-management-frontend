@@ -1,6 +1,7 @@
 import {
   getPaginationQuery,
   getSearchQuery,
+  getVaccinesByCow,
   getVaccinesByType,
 } from "../../lib/queryFunctions";
 import axios from "../../lib/axios";
@@ -9,6 +10,7 @@ import axios from "../../lib/axios";
 export async function getVaccines(params = { page: 0 }) {
   try {
     let url = `api/vaccines?`;
+    url += getVaccinesByCow(params);
     url += getPaginationQuery(params);
     url += getSearchQuery(params);
     url += getVaccinesByType(params);

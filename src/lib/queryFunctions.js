@@ -32,3 +32,8 @@ export const getVaccinesByType = (params = { vaccineType: "" }) => {
   if (params?.vaccineType == undefined) params.vaccineType = "";
   return `vaccine_type=${params.vaccineType}&`;
 };
+
+export const getVaccinesByCow = (params = { cow: "" }) => {
+  if (params?.cow == undefined) params.cow = "";
+  return `cow=${params.cow}&`;
+};

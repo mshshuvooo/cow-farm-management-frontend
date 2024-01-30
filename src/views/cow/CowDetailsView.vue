@@ -3,21 +3,22 @@ import { ref, watch } from "vue";
 import { getCow } from "/src/services/cow/cow.service";
 import { useRoute, useRouter } from "vue-router";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import { deleteCow } from "../../services/cow/cow.service";
+import { useAuthStore } from "../../stores/auth.store";
 import Multiselect from "@vueform/multiselect";
-import Breadcrumb from "/src/components/shared/Breadcrumb.vue";
 import PageTitle from "/src/components/shared/PageTitle.vue";
-import Button from "/src/components/shared/Button.vue";
 import CowInfo from "/src/components/cow/CowInfo.vue";
-import CowList from "/src/components/cow/CowList.vue";
 import SlideOver from "/src/components/shared/SlideOver.vue";
 import SuccessNotification from "/src/components/shared/SuccessNotification.vue";
 import EditCow from "/src/components/cow/EditCow.vue";
-import { deleteCow } from "../../services/cow/cow.service";
-import { useAuthStore } from "../../stores/auth.store";
+import CowChildren from "/src/components/cow/CowChildren.vue";
+import CowVaccineList from "/src/components/cow/CowVaccineList.vue";
 
 const route = useRoute();
 const router = useRouter();
+const auth = useAuthStore();
 const cow = ref({});
+
 cow.value = await getCow(route?.params?.earTagNo);
 watch(
   () => route?.params?.earTagNo,
@@ -53,7 +54,6 @@ const handleDeleteCow = async () => {
   }
 };
 
-const auth = useAuthStore();
 </script>
 
 <template>
@@ -110,16 +110,8 @@ const auth = useAuthStore();
   >
     <CowInfo :cow="cow" />
 
-    <div class="bg-white rounded-md mt-5" v-if="cow?.children?.length">
-      <div class="px-4 pt-3">
-        <h3 class="text-xl font-semibold leading-7 text-gray-900">Children</h3>
-        <p class="mt-1 text-md leading-6 text-gray-500">
-          List of children of {{ cow?.name }}
-        </p>
-      </div>
-      <div class="p-4 mt-2">
-        <CowList view="simple" :cows="cow?.children" />
-      </div>
-    </div>
+    <CowChildren :cow="cow" v-if="cow?.children?.length" />
+
+    <CowVaccineList v-if="cow?.vaccines?.length" :cow="cow" />
   </main>
 </template>
